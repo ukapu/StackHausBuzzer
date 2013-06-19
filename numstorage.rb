@@ -33,7 +33,7 @@ post '/request' do
     content_type 'text/xml'
     erb :twiml
 
-  elseif content.downcase == "stop"
+  else if content.downcase == "remove"
     numbers = numbers.reject { |i| i == params[:From] }
     content_type 'text/xml'
     erb :remove
