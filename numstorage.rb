@@ -27,10 +27,14 @@ post '/addNumber' do
       :number => params[:From],
       :active => true
     })
-  end
 
   nextIndex += 1
-
   content_type 'text/xml'
   erb :twiml
+
+  else
+    content_type 'text/xml'
+    erb :fail
+  end
+
 end
