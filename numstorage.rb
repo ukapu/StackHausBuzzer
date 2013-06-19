@@ -20,18 +20,23 @@ get '/' do
 end
 
 
-post '/addNumber' do
-  if params[:Body] == pin 
+post '/request' do
+  content = params[:Body]
+  if content == pin 
     numbers.push({
       :index => nextIndex,
       :number => params[:From],
       :active => true
     })
 
-  nextIndex += 1
-  content_type 'text/xml'
-  erb :twiml
+    nextIndex += 1
+    content_type 'text/xml'
+    erb :twiml
 
+  elseif content.downcase == "stop"
+    numbers = numbers.reject { |i| i == params[:From] }
+    content_type 'text/xml'
+    erb :remove
   else
     content_type 'text/xml'
     erb :fail
