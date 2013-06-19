@@ -32,8 +32,7 @@ post '/request' do
     nextIndex += 1
     content_type 'text/xml'
     erb :twiml
-
-  else if content.downcase == "remove"
+  elseif content.downcase == 'remove'
     numbers = numbers.reject { |i| i == params[:From] }
     content_type 'text/xml'
     erb :remove
