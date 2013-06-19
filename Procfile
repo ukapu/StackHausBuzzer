@@ -1,1 +1,1 @@
-web: bundle exec ruby twiml-quickstart.rb -p $PORT
+web: bundle exec ruby sms-quickstart.rb -p $PORT
