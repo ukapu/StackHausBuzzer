@@ -33,23 +33,25 @@ post '/request' do
     })
 
     nextIndex += 1
-    message = 1
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Sms "Your number has been added to the buzzer list."
+    end
+    twiml.text
   elseif content.downcase == 'remove'
     numbers = numbers.reject { |i,j,k| j == params[:From] }
-    message = 2
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Sms "Your number has been removed from the buzzer list."
+    end
   else
-    message = 0
+    twiml = Twilio::TwiML::Response.new do |r|
+      r.Sms "Whatever your request was, it didn't work."
+    end
   end
 
-  if message == 1
-    content_type 'text/xml'
-    erb :twiml
-  elif message == 2
-    content_type 'text/xml'
-    erb :remove
-  elif message == 0
-    content_type 'text/xml'
-    erb :fail
-  end
+#  if message == 1
+#    content_type 'text/xml'
+#    erb :twiml
+#  elif message == 2
+#    content_type 'text/xml'
 
 end
