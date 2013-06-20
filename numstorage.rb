@@ -23,7 +23,7 @@ end
 post '/request' do
 
   content = params[:Body]
-  message = 0
+
   if content == pin
      # && !(numbers.detect {|f| f["number"] == params[:From] )
     numbers.push({
@@ -33,20 +33,19 @@ post '/request' do
     })
 
     nextIndex += 1
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Sms "Your number has been added to the buzzer list."
-    end
-    twiml.text
+    message = "Your number has been added to the buzzer list."
+
   elseif content.downcase == 'remove'
     numbers = numbers.reject { |i,j,k| j == params[:From] }
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Sms "Your number has been removed from the buzzer list."
-    end
+    message = "Your number has been removed from the buzzer list."
   else
-    twiml = Twilio::TwiML::Response.new do |r|
-      r.Sms "Whatever your request was, it didn't work."
-    end
+    message = "Whatever you were trying to do, it didn't work."
   end
+
+  twiml = Twilio::TwiML::Response.new do |r|
+    r.Sms message
+  end
+  twiml.text
 
 #  if message == 1
 #    content_type 'text/xml'
