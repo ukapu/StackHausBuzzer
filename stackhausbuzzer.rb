@@ -22,7 +22,7 @@ get '/' do
   }
 end
 
-get '/buzzer' do
+post '/buzzer' do
   if params[:From] == gate_number || params[:From] == front_door_number || params[:From] == test
     Twilio::TwiML::Response.new do |r|
       numbers.each { |x| r.Dial x[:number] }
