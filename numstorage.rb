@@ -24,7 +24,7 @@ post '/request' do
 
   content = params[:Body]
 
-  if content == pin && !(numbers.detect {|f| f["number"] == params[:From] })
+  if content == pin # && !(numbers.detect {|f| f["number"] == params[:From] )
     numbers.push({
       :index => nextIndex,
       :number => params[:From],
