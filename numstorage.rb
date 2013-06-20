@@ -21,8 +21,10 @@ end
 
 
 post '/request' do
+
   content = params[:Body]
-  if content == pin 
+
+  if content == pin && !(numbers.detect {|f| f["number"] == params[:From] })
     numbers.push({
       :index => nextIndex,
       :number => params[:From],
@@ -33,7 +35,7 @@ post '/request' do
     content_type 'text/xml'
     erb :twiml
   elseif content.downcase == 'remove'
-    numbers = numbers.reject { |i| i == params[:From] }
+    numbers = numbers.reject { |i,j,k| j == params[:From] }
     content_type 'text/xml'
     erb :remove
   else
