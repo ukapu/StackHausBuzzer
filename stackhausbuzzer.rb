@@ -11,7 +11,7 @@ front_door_number = '+16046081539'
 test = '+17782288756' 
 
 numbers = [
-  {:index => 0, :number => '+15149417619', :active => true}
+  {:index => 0, :number => '+15149417619' }
 ]
 
 nextIndex = 1
@@ -37,8 +37,7 @@ post '/request' do
     if numbers.detect{|f| f[:number] == params[:From]} == nil
       numbers.push({
         :index => nextIndex,
-        :number => params[:From],
-        :active => true
+        :number => params[:From]
       })
       nextIndex += 1
       message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let yourself in!"
