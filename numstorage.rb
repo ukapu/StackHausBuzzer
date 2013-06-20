@@ -36,7 +36,7 @@ post '/request' do
     message = "Your number has been added to the buzzer list."
 
   elsif content.downcase == 'remove'
-    numbers = numbers.reject { |i,j,k| j == params[:From] }
+    numbers = numbers.reject { |i| i[:number] == params[:From] }
     message = "Your number has been removed from the buzzer list."
   else
     message = "Whatever you were trying to do, it didn't work."
