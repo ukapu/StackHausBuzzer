@@ -50,5 +50,6 @@ post '/request' do
   elif message == 0
     content_type 'text/xml'
     erb :fail
+  end
 
 end
