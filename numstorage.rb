@@ -25,16 +25,17 @@ post '/request' do
   content = params[:Body]
 
   if content == pin
-
-    numbers.push({
-      :index => nextIndex,
-      :number => params[:From],
-      :active => true
-    })
-
-    nextIndex += 1
-    message = "Your number has been added to the buzzer list."
-
+    if @numbers.detect{|f| f[:number] == params[:From]} == nil
+      numbers.push({
+        :index => nextIndex,
+        :number => params[:From],
+        :active => true
+      })
+      nextIndex += 1
+      message = "Your number has been added to the buzzer list."
+    else
+      message = "Your number is already on the list."
+    end
   elsif content.downcase == 'remove'
     numbers = numbers.reject { |i| i[:number] == params[:From] }
     message = "Your number has been removed from the buzzer list."
