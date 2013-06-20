@@ -13,16 +13,14 @@
   </style>
 </head>
 <body>
-  <h1>numbers with access</h1>
+  <h1>numbas</h1>
   <table>
     <tr>
       <th>Phone Number</th>
-      <th>access</th>
     </tr>
     <% numbers.each do |number| %>
     <tr>
       <td><%= number[:number] %></td>
-      <td><%= number[:active] %></td>
     </tr>
     <% end %>
   </table>
