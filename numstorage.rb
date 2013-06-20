@@ -24,8 +24,8 @@ post '/request' do
 
   content = params[:Body]
   message = 0
-
-  if content == pin # && !(numbers.detect {|f| f["number"] == params[:From] )
+  if content == pin
+     # && !(numbers.detect {|f| f["number"] == params[:From] )
     numbers.push({
       :index => nextIndex,
       :number => params[:From],
@@ -50,6 +50,5 @@ post '/request' do
   elif message == 0
     content_type 'text/xml'
     erb :fail
-  end
 
 end
