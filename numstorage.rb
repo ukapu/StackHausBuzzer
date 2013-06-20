@@ -23,6 +23,7 @@ end
 post '/request' do
 
   content = params[:Body]
+  message = 0
 
   if content == pin # && !(numbers.detect {|f| f["number"] == params[:From] )
     numbers.push({
@@ -32,13 +33,21 @@ post '/request' do
     })
 
     nextIndex += 1
-    content_type 'text/xml'
-    erb :twiml
+    message = 1
   elseif content.downcase == 'remove'
     numbers = numbers.reject { |i,j,k| j == params[:From] }
+    message = 2
+  else
+    message = 0
+  end
+
+  if message == 1
+    content_type 'text/xml'
+    erb :twiml
+  elif message == 2
     content_type 'text/xml'
     erb :remove
-  else
+  elif message == 0
     content_type 'text/xml'
     erb :fail
   end
