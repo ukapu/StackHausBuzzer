@@ -13,8 +13,14 @@ front_door_number = '+16046081539'
 test = '+17782288756' 
 
 def jwrite(object)
-  File.open("numbers.json", "r+") do |f|
+  File.open("numbers.json", "a") do |f|
     f.write(object.to_json)
+  end
+end
+
+def jread
+  File.open("numbers.json", "r+") do |f|
+    j = JSON.load(f)
   end
 end
 
@@ -31,6 +37,7 @@ get '/' do
 end
 
 post '/buzzer' do
+  numbers = jread
   if params[:From] == gate_number || params[:From] == front_door_number || params[:From] == test
     Twilio::TwiML::Response.new do |r|
       numbers.each { |x| r.Dial x[:number] }
@@ -40,7 +47,7 @@ end
 
 post '/request' do
   content = params[:Body]
-
+  numbers = jread
   if content == pin
     if numbers.detect{|f| f[:number] == params[:From]} == nil
       numbers.push({
