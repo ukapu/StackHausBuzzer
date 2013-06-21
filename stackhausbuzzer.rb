@@ -2,6 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'twilio-ruby'
 require 'erb'
+require 'json'
+require 'pp'
 
 pin = "1234"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
@@ -10,11 +12,17 @@ gate_number = '+16046081352'
 front_door_number = '+16046081539'
 test = '+17782288756' 
 
+def jwrite(object)
+  File.open("numbers.json", "r+") do |f|
+    f.write(object.to_json)
+  end
+end
+
 numbers = [
-  {:index => 0, :number => '+15149417619' }
+  { :number => '+15149417619' }
 ]
 
-nextIndex = 1
+jwrite(numbers)
 
 get '/' do
   erb :index, :locals => {
@@ -36,10 +44,8 @@ post '/request' do
   if content == pin
     if numbers.detect{|f| f[:number] == params[:From]} == nil
       numbers.push({
-        :index => nextIndex,
         :number => params[:From]
       })
-      nextIndex += 1
       message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let yourself in!"
     else
       message = "Your number is already on the list."
@@ -50,6 +56,8 @@ post '/request' do
   else
     message = "Whatever you were trying to do, it didn't work."
   end
+
+  jwrite(numbers)
 
   twiml = Twilio::TwiML::Response.new do |r|
     r.Sms message
