@@ -5,21 +5,21 @@ require 'erb'
 require 'json'
 require 'pp'
 
-pin = "1234"
+jfile = "numbers.json"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
 twilio_number = '+15148001174'
 gate_number = '+16046081352'
 front_door_number = '+16046081539'
 test = '+17782288756' 
 
-def jwrite(object)
-  File.open("numbers.json", "a") do |f|
-    f.write(object.to_json)
+def jwrite(object, file)
+  File.open(file, "w") do |f|
+    JSON.dump(object,f)
   end
 end
 
-def jread
-  File.open("numbers.json", "r+") do |f|
+def jread(file)
+  File.open(file, "r") do |f|
     j = JSON.load(f)
   end
   return j
@@ -29,16 +29,16 @@ numbers = [
   { :number => '+15149417619' }
 ]
 
-jwrite(numbers)
+jwrite(numbers, jfile)
 
 get '/' do
   erb :index, :locals => {
-    :numbers => jread 
+    :numbers => jread(jfile) 
   }
 end
 
 post '/buzzer' do
-  numbers = jread
+  numbers = jread(jfile)
   if params[:From] == gate_number || params[:From] == front_door_number || params[:From] == test
     Twilio::TwiML::Response.new do |r|
       numbers.each { |x| r.Dial x[:number] }
@@ -48,8 +48,8 @@ end
 
 post '/request' do
   content = params[:Body]
-  numbers = jread
-  if content == pin
+  numbers = jread(jfile)
+  if content == ENV['PIN']
     if numbers.detect{|f| f[:number] == params[:From]} == nil
       numbers.push({
         :number => params[:From]
@@ -65,7 +65,7 @@ post '/request' do
     message = "Whatever you were trying to do, it didn't work."
   end
 
-  jwrite(numbers)
+  jwrite(numbers, jfile)
 
   twiml = Twilio::TwiML::Response.new do |r|
     r.Sms message
