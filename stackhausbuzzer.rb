@@ -46,16 +46,16 @@ post '/request' do
   content = params[:Body]
   numbers = jread(jfile)
   if content == ENV['PIN']
-    if numbers.detect{|f| f[:number] == params[:From]} == nil
+    if numbers.detect{|f| f["number"] == params[:From]} == nil
       numbers.push({
-        :number => params[:From]
+        "number" => params[:From]
       })
       message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let yourself in!"
     else
       message = "Your number is already on the list."
     end
   elsif content.downcase == 'remove'
-    numbers = numbers.reject { |i| i[:number] == params[:From] }
+    numbers = numbers.reject { |i| i["number"] == params[:From] }
     message = "Your number has been removed from the buzzer list."
   else
     message = "Whatever you were trying to do, it didn't work."
