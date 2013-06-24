@@ -11,7 +11,7 @@ twilio_number = '+15148001174'
 test = '+17782288756' 
 
 def jwrite(object, file)
-  File.open(file, "w") do |f|
+  File.open(file, "w+") do |f|
     JSON.dump(object,f)
   end
 end
@@ -20,12 +20,9 @@ def jread(file)
   File.open(file, "r") do |f|
     j = JSON.load(f)
   end
-  return j
 end
 
-numbers = [
-  { :number => '+15149417619' }
-]
+numbers = [ { :number => '+15149417619'} ]
 
 jwrite(numbers, jfile)
 

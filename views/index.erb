@@ -1,4 +1,4 @@
-CTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
   <title>numbers with access</title>
@@ -18,37 +18,12 @@ CTYPE html>
     <tr>
       <th>Phone Number</th>
     </tr>
-    <% numbers.each do |number| %>
+    <% numbers.each do |entry| %>
     <tr>
-      <td><%= number[:number] %></td>
+      <td><%= entry["number"] %></td>
     </tr>
     <% end %>
   </table>
-  
-  <!-- Scripting Magic -->
-  <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-  <script type="text/javascript" charset="utf-8">
-    $(function() {
-      //Handle change 
-      $('input').on('click', function(e) {
-        console.log(e);
-        
-        //Ajax post request to kick off the SMS message
-        $.ajax({
-          url:'/fillOrder',
-          method:'POST',
-          data: {
-            id:e.target.id,
-            status:e.target.checked
-          },
-          dataType:'text',
-          success: function(data, status, xhr) {
-            console.log(data);
-          }
-        });
-      });
-    });
-  </script>
 </body>
 </html>
 
