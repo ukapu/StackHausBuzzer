@@ -22,6 +22,7 @@ def jread
   File.open("numbers.json", "r+") do |f|
     j = JSON.load(f)
   end
+  return j
 end
 
 numbers = [
