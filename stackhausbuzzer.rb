@@ -33,7 +33,7 @@ jwrite(numbers)
 
 get '/' do
   erb :index, :locals => {
-    :numbers => numbers 
+    :numbers => jread 
   }
 end
 
