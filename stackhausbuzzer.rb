@@ -8,8 +8,6 @@ require 'pp'
 jfile = "numbers.json"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
 twilio_number = '+15148001174'
-gate_number = '+16046081352'
-front_door_number = '+16046081539'
 test = '+17782288756' 
 
 def jwrite(object, file)
@@ -32,14 +30,15 @@ numbers = [
 jwrite(numbers, jfile)
 
 get '/' do
+  numbers = jread(jfile)
   erb :index, :locals => {
-    :numbers => jread(jfile) 
+    :numbers => numbers
   }
 end
 
 post '/buzzer' do
   numbers = jread(jfile)
-  if params[:From] == gate_number || params[:From] == front_door_number || params[:From] == test
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == test
     Twilio::TwiML::Response.new do |r|
       numbers.each { |x| r.Dial x[:number] }
     end.text
