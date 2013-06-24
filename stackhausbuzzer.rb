@@ -24,7 +24,7 @@ end
 
 numbers = [ { :number => '+15149417619'} ]
 
-jwrite(numbers, jfile)
+#jwrite(numbers, jfile)
 
 get '/' do
   numbers = jread(jfile)
