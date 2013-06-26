@@ -13,13 +13,7 @@ twilio_number = '+15148001174'
 test = '+17782288756' 
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
-=begin DB.create_table :numbers do
-  String :number
-end
-=end
 numbers = DB[:numbers]
-
-#jwrite(numbers, jfile)
 
 get '/' do
   erb :index, :locals => {
@@ -39,7 +33,7 @@ post '/request' do
   from = params[:From]
   content = params[:Body]
   if content == ENV['PIN']
-    if numbers.where(:number => from) == nil
+    if numbers.where(:number => from).count == 0 
       numbers.insert(:number => from)
       message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let yourself in!"
     else
