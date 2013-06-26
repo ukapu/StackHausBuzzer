@@ -4,11 +4,14 @@ require 'twilio-ruby'
 require 'erb'
 require 'json'
 require 'pp'
+require 'sequel'
 
 jfile = "numbers.json"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
 twilio_number = '+15148001174'
 test = '+17782288756' 
+dburl = ENV['DATABASE_URL']
+DB = Sequel.connect(dburl)
 
 def jwrite(object, file)
   File.open(file, "w+") do |f|

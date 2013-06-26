@@ -9,9 +9,12 @@ GEM
     jwt (0.1.8)
       multi_json (>= 1.5)
     multi_json (1.7.4)
+    pg (0.15.1)
+    pg (0.15.1-x86-mingw32)
     rack (1.5.2)
     rack-protection (1.5.0)
       rack
+    sequel (3.48.0)
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -31,7 +34,9 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
-  json (= 1.8.0)
-  sinatra (= 1.4.2)
-  thin (= 1.5.1)
-  twilio-ruby (= 3.9.0)
+  json
+  pg
+  sequel
+  sinatra
+  thin
+  twilio-ruby
