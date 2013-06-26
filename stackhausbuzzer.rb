@@ -9,7 +9,6 @@ require 'sequel'
 
 jfile = "numbers.json"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
-twilio_number = '+15148001174'
 test = '+17782288756' 
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
