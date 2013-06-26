@@ -13,9 +13,10 @@ twilio_number = '+15148001174'
 test = '+17782288756' 
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
-DB.create_table :numbers do
+=begin DB.create_table :numbers do
   String :number
 end
+=end
 numbers = DB[:numbers]
 
 #jwrite(numbers, jfile)
