@@ -33,7 +33,7 @@ post '/request' do
   if content == ENV['PIN']
     if numbers.where(:number => from).count == 0 
       numbers.insert(:number => from)
-      message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let yourself in!"
+      message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let the caller in!"
     else
       message = "Your number is already on the list."
     end
