@@ -18,9 +18,9 @@ tmp
 .yardoc
 _yardoc
 doc/
-rubytest.rb
+*test.*
 sms-quickstart.rb
 twiml-quickstart.rb
-jsontest.rb
 database.txt
 Vagrantfile
+env.rb
