@@ -5,7 +5,7 @@ require 'erb'
 require 'json'
 require 'pp'
 require 'sequel'
-#require './env.rb'
+require './env.rb'
 
 jfile = "numbers.json"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
@@ -19,6 +19,8 @@ get '/' do
     :numbers => numbers
   }
 end
+
+
 
 post '/buzzer' do
 
@@ -37,8 +39,10 @@ post '/buzzer' do
 end
 
 post '/request' do
+
   from = params[:From]
   content = params[:Body]
+
   if content == ENV['PIN']
     if numbers.where(:number => from).count == 0 
       if from == ENV['ADMIN']
@@ -46,18 +50,21 @@ post '/request' do
         message = "Your number has been added to the buzzer list with admin privileges. Press 9 when the gate calls to let the caller in!"
       else
         numbers.insert(:number => from, :time_added => Time.now.to_i, :admin => false)
+        message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let the caller in!"
       end
-      message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let the caller in!"
     else
       message = "Your number is already on the list."
     end
   elsif content.downcase == 'remove'
-    numbers.where(:number => from).delete
-    message = "Your number has been removed from the buzzer list."
+    if numbers.where(:number => from).count > 0
+      numbers.where(:number => from).delete
+      message = "Your number has been removed from the buzzer list."
+    else
+      message = "You can't remove a number that's not on the list! That ain't how it works."
+    end
   else
     message = "Whatever you were trying to do, it didn't work."
   end
-
   twiml = Twilio::TwiML::Response.new do |r|
     r.Sms message
   end
