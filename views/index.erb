@@ -18,11 +18,20 @@
     <tr>
       <th>Phone Number</th>
     </tr>
+    <tr>
+      <th>Date Added</th>
+    </tr>
+    <tr>
+      <th>Admin?</th>
+    </tr>
     <% numbers.each do |entry| %>
     <tr>
       <td><%= entry[:number] %></td>
+      <td><%= Time.at(entry[:date_added]) %></td>
+      <td><%= entry[:admin] %></td>
     </tr>
     <% end %>
+    
   </table>
 </body>
 </html>
