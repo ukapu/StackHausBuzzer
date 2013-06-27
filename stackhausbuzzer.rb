@@ -20,7 +20,7 @@ get '/' do
 end
 
 post '/buzzer' do
-  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR'] # || params[:From] == test
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']
     Twilio::TwiML::Response.new do |r|
       numbers.each { |x| r.Dial x[:number] }
     end.text
