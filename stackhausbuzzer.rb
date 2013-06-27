@@ -5,7 +5,7 @@ require 'erb'
 require 'json'
 require 'pp'
 require 'sequel'
-require './env.rb'
+#require './env.rb'
 
 jfile = "numbers.json"
 client = Twilio::REST::Client.new 'ACf99cfbc0f42bb061e1dfed9ff6b168b4', 'f434ce9f001c0bc8cb770d85b6d861cd'
@@ -23,7 +23,7 @@ end
 post '/buzzer' do
 
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == test
-    if Time.now.hour < 18 || Time.now.hour > 8
+    if Time.now.localtime.hour < 18 || Time.now.localtime.hour > 8
       Twilio::TwiML::Response.new do |r|
         numbers.each { |x| r.Dial x[:number], :timeout => "5" }
       end.text
