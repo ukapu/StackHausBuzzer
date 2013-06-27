@@ -42,11 +42,12 @@ post '/request' do
   if content == ENV['PIN']
     if numbers.where(:number => from).count == 0 
       if from == ENV['ADMIN']
-        numbers.insert(:number => from, :time_added => Time.now.to_s, :admin => true)
+        numbers.insert(:number => from, :time_added => Time.now.to_i, :admin => true)
+        message = "Your number has been added to the buzzer list with admin privileges. Press 9 when the gate calls to let the caller in!"
       else
-        numbers.insert(:number => from, :time_added => Time.now.to_s, :admin => false)
+        numbers.insert(:number => from, :time_added => Time.now.to_i, :admin => false)
       end
-      message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let yourself in!"
+      message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let the caller in!"
     else
       message = "Your number is already on the list."
     end
