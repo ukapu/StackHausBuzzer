@@ -19,7 +19,7 @@ end
 post '/buzzer' do
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR'] || params[:From] == ENV['ANDREW']
     Twilio::TwiML::Response.new do |r|
-      numbers.each { |x| r.Dial x[:number] }
+     numbers.each { |x| r.Dial x[:number], :timeout => "10" }
     end.text
   end
 end
