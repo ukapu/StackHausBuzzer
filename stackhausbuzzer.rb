@@ -23,7 +23,7 @@ post '/buzzer' do
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == test
     if Time.now.localtime.hour < 18 || Time.now.localtime.hour > 8
       Twilio::TwiML::Response.new do |r|
-        numbers.each { |x| r.Dial x[:number], :timeout => "5" }
+        numbers.each { |x| r.Dial x[:number], :timeout => "10" }
       end.text
     else
       Twilio::TwiML::Response.new do |r|
