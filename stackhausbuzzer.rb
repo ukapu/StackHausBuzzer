@@ -18,7 +18,7 @@ end
 
 post '/buzzer' do
 
- # if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
     if Time.now.localtime.hour < 18 || Time.now.localtime.hour > 8
       Twilio::TwiML::Response.new do |r|
         numbers.each { |x| r.Dial x[:number], :timeout => "10" }
@@ -28,7 +28,7 @@ post '/buzzer' do
         r.Say 'We are currently closed. Come back during business hours.', :voice => 'woman'
       end.text
     end
- # end
+  end
 
 end
 
