@@ -25,3 +25,5 @@ database.txt
 Vagrantfile
 env.rb
 todo.txt
+stylesheets/
+index.html.haml
