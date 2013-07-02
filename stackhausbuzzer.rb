@@ -19,13 +19,13 @@ end
 post '/buzzer' do
 
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
-    if Time.now.localtime.hour < 18 || Time.now.localtime.hour > 8
+    if ( Time.now.localtime.hour > 18 || Time.now.localtime.hour < 8 ) && numbers.where(:admin => f).count > 0
       Twilio::TwiML::Response.new do |r|
-        numbers.each { |x| r.Dial x[:number], :timeout => "10" }
+        r.Say 'We are currently closed. Come back during business hours.', :voice => 'woman'
       end.text
     else
       Twilio::TwiML::Response.new do |r|
-        r.Say 'We are currently closed. Come back during business hours.', :voice => 'woman'
+        numbers.each { |x| r.Dial x[:number], :timeout => "10" }
       end.text
     end
   end
