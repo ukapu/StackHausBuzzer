@@ -5,7 +5,7 @@ require 'erb'
 require 'json'
 require 'pp'
 require 'sequel'
-#require './env.rb'
+require './env.rb'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
 numbers = DB[:numbers]
@@ -19,7 +19,7 @@ end
 post '/buzzer' do
 
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
-    if ( Time.now.localtime.hour > 18 || Time.now.localtime.hour < 8 ) && numbers.where(:admin => f).count > 0
+    if ( Time.now.getlocal("-07:00").hour > 18 || Time.now.getlocal("-07:00").hour < 8 ) && numbers.where(:admin => f).count > 0
       Twilio::TwiML::Response.new do |r|
         r.Say 'We are currently closed. Come back during business hours.', :voice => 'woman'
       end.text
