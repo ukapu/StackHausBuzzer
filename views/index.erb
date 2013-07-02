@@ -23,7 +23,7 @@
     <% numbers.each do |entry| %>
     <tr>
       <td><%= entry[:number] %></td>
-      <td><%= Time.at(entry[:time_added]).localtime %></td>
+      <td><%= Time.at(entry[:time_added]).in_time_zone("Pacific Time (US & Canada)") %></td>
       <td><%= entry[:admin] %></td>
     </tr>
     <% end %>
