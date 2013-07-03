@@ -35,12 +35,12 @@ post '/buzzer' do
 
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
     if  hr < 18 && hr > 8 #test times!
-      if numset.where(:admin => f).count == 0
+      if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
           r.Say 'We are currently closed. Come back during business hours.'
         end.text
       else
-        callr numset.where(:admin => f).all
+        callr numset.where(:admin => 'f').all
       end
     else
       callr numset.all
