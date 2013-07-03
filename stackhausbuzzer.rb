@@ -5,7 +5,7 @@ require 'erb'
 require 'json'
 require 'pp'
 require 'sequel'
-#require './env.rb'
+require './env.rb'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
 numbers = DB[:numbers]
