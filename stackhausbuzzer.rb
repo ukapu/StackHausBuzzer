@@ -6,7 +6,6 @@ require 'json'
 require 'pp'
 require 'sequel'
 require 'tzinfo'
-#require './env.rb'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
 numset = DB[:numbers]

@@ -13,6 +13,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
+.env
 
 # YARD artifacts
 .yardoc
@@ -23,7 +24,6 @@ sms-quickstart.rb
 twiml-quickstart.rb
 database.txt
 Vagrantfile
-env.rb
 todo.txt
 stylesheets/
 index.html.haml
