@@ -8,13 +8,13 @@ require 'sequel'
 require 'tzinfo'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
-numset = DB[:numbers]
+numset = DB[:numbers].order(:admin)
 
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
-def call(numbers)
+def callr(numbers)
   Twilio::TwiML::Response.new do |r|
-    numbers.order(:admin).all.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
+    numbers.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
   end.text
 end
 
@@ -34,10 +34,10 @@ post '/buzzer' do
           r.Say 'We are currently closed. Come back during business hours.', :voice => 'woman'
         end.text
       else
-        call numset.where(:admin => f)
+        callr numset.where(:admin => f)
       end
     else
-      call numset
+      callr numset.all
     end
   end
 
