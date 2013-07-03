@@ -14,7 +14,7 @@ tz = TZInfo::Timezone.get('Canada/Pacific')
 
 def call(numbers)
   Twilio::TwiML::Response.new do |r|
-    numbers.order(:admin).reverse_each { |x| r.Dial x[:number], :timeout => "10" }
+    numbers.order(:admin).all.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
   end.text
 end
 
@@ -25,7 +25,7 @@ get '/' do
 end
 
 post '/buzzer' do
-hr = tz.utc_to_local(Time.now).hour
+  hr = tz.utc_to_local(Time.now).hour
 
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
     if  hr > 18 || hr < 8 
