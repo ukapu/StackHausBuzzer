@@ -17,13 +17,17 @@
   <table>
     <tr>
       <th>Phone Number</th>
+      <th>Date Added</th>
+      <th>Admin?</th>
     </tr>
     <% numbers.each do |entry| %>
     <tr>
       <td><%= entry[:number] %></td>
+      <td><%= Time.at(entry[:time_added]).localtime("-07:00") %></td>
+      <td><%= entry[:admin] %></td>
     </tr>
     <% end %>
+    
   </table>
 </body>
 </html>
-

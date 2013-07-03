@@ -5,38 +5,74 @@ require 'erb'
 require 'json'
 require 'pp'
 require 'sequel'
-#require './env.rb'
+require 'tzinfo'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
-numbers = DB[:numbers]
+numset = DB[:numbers].order(:admin)
 
-get '/' do
-  erb :index, :locals => {
-    :numbers => numbers
-  }
-end
+tz = TZInfo::Timezone.get('Canada/Pacific')
 
-post '/buzzer' do
-  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR'] || params[:From] == ENV['ANDREW']
+def callr(numbers)
+  if numbers.count == 0
     Twilio::TwiML::Response.new do |r|
-     numbers.each { |x| r.Dial x[:number], :timeout => "10" }
+      r.Say 'There are no numbers on the list. That\'s weird.'
+    end.text
+  else  
+    Twilio::TwiML::Response.new do |r|
+      numbers.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
     end.text
   end
 end
 
+get '/' do
+  erb :index, :locals => {
+    :numbers => numset
+  }
+end
+
+post '/buzzer' do
+  hr = tz.utc_to_local(Time.now).hour
+
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
+    if hr > 18 || hr < 8
+      if numset.where(:admin => 'f').count == 0
+        Twilio::TwiML::Response.new do |r|
+          r.Say 'We are currently closed. Come back during business hours.'
+        end.text
+      else
+        callr numset.where(:admin => 'f').all
+      end
+    else
+      callr numset.all
+    end
+  end
+
+end
+
 post '/request' do
+
   from = params[:From]
   content = params[:Body]
+
   if content == ENV['PIN']
-    if numbers.where(:number => from).count == 0 
-      numbers.insert(:number => from)
-      message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let the caller in!"
+    if numset.where(:number => from).count == 0 
+      if from == ENV['ADMIN']
+        numset.insert(:number => from, :time_added => Time.now.to_i, :admin => true)
+        message = "Your number has been added to the buzzer list with admin privileges. Press 9 when the gate calls to let the caller in!"
+      else
+        numset.insert(:number => from, :time_added => Time.now.to_i, :admin => false)
+        message = "Your number has been added to the buzzer list. Press 9 when the gate calls to let the caller in!"
+      end
     else
       message = "Your number is already on the list."
     end
   elsif content.downcase == 'remove'
-    numbers.where(:number => from).delete
-    message = "Your number has been removed from the buzzer list."
+    if numset.where(:number => from).count > 0
+      numset.where(:number => from).delete
+      message = "Your number has been removed from the buzzer list."
+    else
+      message = "You can't remove a number that's not on the list! That ain't how it works."
+    end
   else
     message = "Whatever you were trying to do, it didn't work."
   end
