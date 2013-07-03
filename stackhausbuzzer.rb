@@ -13,9 +13,15 @@ numset = DB[:numbers].order(:admin)
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
 def callr(numbers)
-  Twilio::TwiML::Response.new do |r|
-    numbers.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
-  end.text
+  if numbers.count == 0
+    Twilio:TwiML::Response.new do |r|
+      r.Say 'There are no numbers on the list. That\'s weird'
+    end.text
+  else  
+    Twilio::TwiML::Response.new do |r|
+      numbers.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
+    end.text
+  end
 end
 
 get '/' do
@@ -28,10 +34,10 @@ post '/buzzer' do
   hr = tz.utc_to_local(Time.now).hour
 
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
-    if  hr < 18 || hr > 8 #test times!
+    if  hr < 18 && hr > 8 #test times!
       if numset.where(:admin => f).count == 0
         Twilio::TwiML::Response.new do |r|
-          r.Say 'We are currently closed. Come back during business hours.', :voice => 'woman'
+          r.Say 'We are currently closed. Come back during business hours.'
         end.text
       else
         callr numset.where(:admin => f).all
