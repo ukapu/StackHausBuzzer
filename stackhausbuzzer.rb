@@ -73,6 +73,13 @@ post '/request' do
     else
       message = "You can't remove a number that's not on the list! That ain't how it works."
     end
+  elsif content.downcase == 'admin clear'
+    if from == ENV['ADMIN']
+      numset.where(:admin => 'f').delete
+      message = "Non admin numbers have been cleared. (If there were any)."
+    else
+      message = "You're not allowed to do that."
+    end
   else
     message = "Whatever you were trying to do, it didn't work."
   end
