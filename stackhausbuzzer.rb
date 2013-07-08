@@ -12,6 +12,12 @@ numset = DB[:numbers]
 
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
+def dial(number)
+  Twilio::TwiML::Response.new do |r|
+    r.Dial number, :timeout => "30" 
+  end.text
+end
+
 def callr(numbers)
   if numbers.count == 0
     Twilio::TwiML::Response.new do |r|
@@ -19,9 +25,7 @@ def callr(numbers)
     end.text
   else  
     numbers.reverse_each do |x|
-      Twilio::TwiML::Response.new do |r|
-        r.Dial x[:number], :timeout => "30" 
-      end.text
+      dial(x[:number])
     end
   end
 end
