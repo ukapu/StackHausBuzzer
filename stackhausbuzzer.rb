@@ -12,16 +12,15 @@ numset = DB[:numbers]
 
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
-def callr(numbers)
+def callr(numbers, status)
   if numbers.count == 0
     Twilio::TwiML::Response.new do |r|
       r.Say 'There are no numbers on the list. That\'s weird.'
     end.text
   else  
+    out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      numbers.reverse_each { |x| 
-        puts "calling: #{ x[:number] }"
-        r.Dial x[:number], :timeout => 30 }
+      r.Dial out, :timeout => 30, :action => 'stackhausstaging.herokuapp.com/buzzer' 
     end.text
   end
 end
@@ -45,7 +44,9 @@ post '/buzzer' do
         callr numset.where(:admin => 'f').all
       end
     else
-      callr numset.order(:admin).all
+      begin
+        callr numset.order(:admin).all
+      end while params[:DialCallStatus] != "completed"
     end
   end
 
@@ -91,4 +92,10 @@ post '/request' do
   end
   twiml.text
 
+end
+
+post '/dial' do
+  Twilio::TwiML::Response.new do |r|
+
+  end
 end
