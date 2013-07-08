@@ -12,7 +12,7 @@ numset = DB[:numbers]
 
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
-def callr(numbers)
+def callr(numbers, status)
   if numbers.count == 0
     Twilio::TwiML::Response.new do |r|
       r.Say 'There are no numbers on the list. That\'s weird.'
