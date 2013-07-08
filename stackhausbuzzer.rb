@@ -18,9 +18,11 @@ def callr(numbers)
       r.Say 'There are no numbers on the list. That\'s weird.'
     end.text
   else  
-    Twilio::TwiML::Response.new do |r|
-      numbers.reverse_each { |x| r.Dial x[:number], :timeout => "30" }
-    end.text
+    numbers.reverse_each { |x|
+      Twilio::TwiML::Response.new do |r|
+        r.Dial x[:number], :timeout => "30" 
+      end.text
+    }
   end
 end
 
