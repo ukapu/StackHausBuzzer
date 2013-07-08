@@ -19,7 +19,9 @@ def callr(numbers)
     end.text
   else  
     Twilio::TwiML::Response.new do |r|
-      numbers.reverse_each { |x| r.Dial x[:number], :timeout => 30 }
+      numbers.reverse_each { |x| 
+        puts "calling: #{ x[:number] }"
+        r.Dial x[:number], :timeout => 30 }
     end.text
   end
 end
