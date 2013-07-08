@@ -43,7 +43,7 @@ post '/buzzer' do
         callr numset.where(:admin => 'f').all
       end
     else
-      callr numset.all
+      callr numset.order(:admin).all
     end
   end
 
