@@ -34,9 +34,9 @@ end
 
 post '/buzzer' do
   hr = tz.utc_to_local(Time.now).hour
-
+  time = tz.utc_to_local(Time.now)
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST']
-    if hr > 18 || hr < 8
+    if hr > 18 || hr < 8 || time.saturday? || time.sunday?
       if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
           r.Say 'We are currently closed. Come back during business hours.'
