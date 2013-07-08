@@ -8,7 +8,7 @@ require 'sequel'
 require 'tzinfo'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
-numset = DB[:numbers].order(:admin)
+numset = DB[:numbers]
 
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
@@ -19,7 +19,7 @@ def callr(numbers)
     end.text
   else  
     Twilio::TwiML::Response.new do |r|
-      numbers.reverse_each { |x| r.Dial x[:number], :timeout => "10" }
+      numbers.reverse_each { |x| r.Dial x[:number], :timeout => "12" }
     end.text
   end
 end
