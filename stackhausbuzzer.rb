@@ -32,7 +32,7 @@ get '/' do
 end
 
 post '/buzzer' do
-
+  puts "buzzer call"
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
