@@ -9,7 +9,7 @@ require 'tzinfo'
 
 DB = Sequel.connect(ENV['DATABASE_URL'])
 numset = DB[:numbers]
-
+numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
 def callr(numbers)
@@ -34,7 +34,6 @@ end
 post '/buzzer' do
 
   puts "buzzer call"
-  status = params[:DialCallStatus] || params[:CallStatus]
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
@@ -49,17 +48,34 @@ post '/buzzer' do
       end
     else
       numbers = numset.order(:admin).all
-      loop do
-        out = numbers.pop
-        Twilio::TwiML::Response.new do |r|
-          r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer"
-        end.text
-        break unless status == "busy" || status == "failed" || status == "no-answer"
-      end
+      out = numbers.pop
+      Twilio::TwiML::Response.new do |r|
+        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue"
+      end.text
+ #status == "busy" || status == "failed" || status == "no-answer"
     end
  # end
 
 end
+
+post '/buzzer/continue' do
+
+  status = params[:DialCallStatus]
+
+  if status == "busy" || status == "failed" || status == "no-answer"
+    out = numbers.pop
+    Twilio::TwiML::Response.new do |r|
+      r.Dial out[:number], :action =>  "http://stackhausstaging.herokuapp.com/buzzer/continue"
+    end.text
+  else
+    Twilio::TwiML::Response.new do |r|
+      r.Say 'Goodbye'
+    end.text
+  end
+
+end
+
+
 
 post '/request' do
 
