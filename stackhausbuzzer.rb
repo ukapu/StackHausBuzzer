@@ -20,7 +20,7 @@ def callr(numbers)
   else  
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out, :timeout => 30, :action => 'stackhausstaging.herokuapp.com/buzzer' 
+      r.Dial out, :timeout => 30
     end.text
   end
 end
