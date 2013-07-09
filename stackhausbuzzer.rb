@@ -34,11 +34,10 @@ end
 
 post '/buzzer' do
 
-  puts "buzzer call"
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
- # if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] || params[:From] == "twilioUI"
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] || params[:From] == "twilioUI"
     if ( hr > 18 || hr < 8 ) || ( time.saturday? || time.sunday? )
       if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
@@ -51,23 +50,20 @@ post '/buzzer' do
       numbers = numset.order(:admin).all
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
-        puts "response1"
         r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue"
       end.text
     end
- # end
+  end
 
 end
 
 post '/buzzer/continue' do
 
   status = params[:DialCallStatus]
-  puts status
 
   if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      puts "response2"
       r.Dial out[:number], :callerId => params[:From]
     end.text
   else
