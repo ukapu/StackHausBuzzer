@@ -32,6 +32,7 @@ get '/' do
 end
 
 post '/buzzer' do
+
   puts "buzzer call"
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
@@ -46,9 +47,7 @@ post '/buzzer' do
         callr numset.where(:admin => 'f').all
       end
     else
-      begin
-        callr numset.order(:admin).all
-      end while params[:DialCallStatus] != "completed"
+      callr numset.order(:admin).all
     end
   end
 
