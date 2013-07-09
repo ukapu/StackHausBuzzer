@@ -64,19 +64,17 @@ post '/buzzer/continue' do
   status = params[:DialCallStatus]
   puts status
 
-#  if status #== "busy" || status == "failed" || status == "no-answer"
+  if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
       puts "response2"
       r.Dial out[:number], :callerId => params[:From]
     end.text
-=begin
   else
     Twilio::TwiML::Response.new do |r|
       r.Say 'Goodbye'
     end.text
   end
-=end
 
 end
 
