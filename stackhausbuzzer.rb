@@ -21,7 +21,7 @@ def callr(numbers)
   else  
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :timeout => 30, :action => "stackhausstaging.herokuapp.com/buzzer"
+      r.Dial out[:number], :timeout => 20, :action => "stackhausstaging.herokuapp.com/buzzer"
     end.text
   end
 end
@@ -50,7 +50,7 @@ post '/buzzer' do
       numbers = numset.order(:admin).all
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
-        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue"
+        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20
       end.text
     end
   end
@@ -64,7 +64,7 @@ post '/buzzer/continue' do
   if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue"     
+      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 15    
     end.text
   else
     Twilio::TwiML::Response.new do |r|
