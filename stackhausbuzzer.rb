@@ -63,7 +63,7 @@ post '/buzzer/continue' do
   status = params[:DialCallStatus]
   puts status
 
-  if status == "busy" || status == "failed" || status == "no-answer"
+  if status #== "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
       r.Dial out[:number], :action =>  "http://stackhausstaging.herokuapp.com/buzzer/continue"
