@@ -67,7 +67,7 @@ post '/buzzer/continue' do
     out = numbers.pop
     puts out
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :action =>  "http://stackhausstaging.herokuapp.com/buzzer/continue", :callerId => params[:From]
+      r.Dial out[:number], :callerId => params[:From]
     end.text
 =begin
   else
