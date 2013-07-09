@@ -122,9 +122,3 @@ post '/request' do
   twiml.text
 
 end
-
-post '/dial' do
-  Twilio::TwiML::Response.new do |r|
-
-  end
-end
