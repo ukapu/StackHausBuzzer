@@ -33,8 +33,8 @@ end
 
 post '/buzzer' do
 
-  status = params[:DialCallStatus]
   puts "buzzer call"
+  status = params[:DialCallStatus] || params[:CallStatus]
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
