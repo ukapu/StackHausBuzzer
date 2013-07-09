@@ -20,7 +20,7 @@ def callr(numbers)
   else  
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out, :timeout => 30
+      r.Dial out[:number], :timeout => 30, :action => "stackhausstaging.herokuapp.com/buzzer"
     end.text
   end
 end
@@ -47,7 +47,9 @@ post '/buzzer' do
         callr numset.where(:admin => 'f').all
       end
     else
+      begin
       callr numset.order(:admin).all
+      end while params[:DialCallStatus] != "complete"
     end
   end
 
