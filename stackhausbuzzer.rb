@@ -50,6 +50,7 @@ post '/buzzer' do
       numbers = numset.order(:admin).all
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
+        puts "response1"
         r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue"
       end.text
     end
@@ -61,12 +62,11 @@ post '/buzzer/continue' do
 
   status = params[:DialCallStatus]
   puts status
-  puts numbers
 
 #  if status #== "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
-    puts out
     Twilio::TwiML::Response.new do |r|
+      puts "response2"
       r.Dial out[:number], :callerId => params[:From]
     end.text
 =begin
