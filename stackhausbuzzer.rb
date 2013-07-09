@@ -33,6 +33,7 @@ end
 
 post '/buzzer' do
 
+  status = params[:DialCallStatus]
   puts "buzzer call"
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
@@ -47,9 +48,13 @@ post '/buzzer' do
         callr numset.where(:admin => 'f').all
       end
     else
+      numbers = numset.order(:admin).all
       begin
-      callr numset.order(:admin).all
-      end while params[:DialCallStatus] != "complete" && params[:DialCallStatus] != nil
+        out = numbers.pop
+        Twilio::TwiML::Response.new do |r|
+          r.Dial out[:number], :timeout => 30, :action => "stackhausstaging.herokuapp.com/buzzer"
+        end.text
+      end while status == "busy" || status == "failed" || status == "no-answer"
     end
   end
 
