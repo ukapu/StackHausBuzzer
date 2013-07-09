@@ -61,6 +61,7 @@ post '/buzzer/continue' do
 
   status = params[:DialCallStatus]
   puts status
+  puts numbers
 
 #  if status #== "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
