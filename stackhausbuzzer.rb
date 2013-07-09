@@ -52,7 +52,6 @@ post '/buzzer' do
       Twilio::TwiML::Response.new do |r|
         r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue"
       end.text
- #status == "busy" || status == "failed" || status == "no-answer"
     end
  # end
 
@@ -66,7 +65,7 @@ post '/buzzer/continue' do
 #  if status #== "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :action =>  "http://stackhausstaging.herokuapp.com/buzzer/continue"
+      r.Dial out[:number], :action =>  "http://stackhausstaging.herokuapp.com/buzzer/continue", :callerId => params[:From]
     end.text
 =begin
   else
