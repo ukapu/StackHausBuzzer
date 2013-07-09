@@ -52,7 +52,7 @@ post '/buzzer' do
       begin
         out = numbers.pop
         Twilio::TwiML::Response.new do |r|
-          r.Dial out[:number], :timeout => 30, :action => "stackhausstaging.herokuapp.com/buzzer"
+          r.Dial out[:number], :timeout => 30
         end.text
       end while status == "busy" || status == "failed" || status == "no-answer"
     end
