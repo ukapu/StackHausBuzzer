@@ -38,7 +38,7 @@ post '/buzzer' do
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
-  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] || params[:From] == "twilioUI"
+ # if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] || params[:From] == "twilioUI"
     if ( hr > 18 || hr < 8 ) || ( time.saturday? || time.sunday? )
       if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
@@ -56,7 +56,7 @@ post '/buzzer' do
         end.text
       end while status == "busy" || status == "failed" || status == "no-answer"
     end
-  end
+ # end
 
 end
 
