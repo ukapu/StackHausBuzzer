@@ -49,12 +49,13 @@ post '/buzzer' do
       end
     else
       numbers = numset.order(:admin).all
-      begin
+      loop do
         out = numbers.pop
         Twilio::TwiML::Response.new do |r|
-          r.Dial out[:number], :timeout => 30, :action => "http://stackhausstaging.herokuapp.com/buzzer"
+          r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer"
         end.text
-      end while status == "busy" || status == "failed" || status == "no-answer"
+        break unless status == "busy" || status == "failed" || status == "no-answer"
+      end
     end
  # end
 
