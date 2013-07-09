@@ -7,6 +7,7 @@ require 'pp'
 require 'sequel'
 require 'tzinfo'
 
+
 DB = Sequel.connect(ENV['DATABASE_URL'])
 numset = DB[:numbers]
 numbers = []
