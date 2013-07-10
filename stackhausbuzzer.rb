@@ -7,9 +7,6 @@ require 'pp'
 require 'sequel'
 require 'tzinfo'
 
-
-DB = Sequel.connect(ENV['DATABASE_URL'])
-numset = DB[:numbers]
 numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
@@ -26,6 +23,11 @@ def callr(numbers)
   end
 end
 
+def connectDB
+  DB = Sequel.connect(ENV['DATABASE_URL'])
+  numset = DB[:numbers].order(:admin)
+end
+
 get '/' do
   erb :index, :locals => {
     :numbers => numset
@@ -33,6 +35,8 @@ get '/' do
 end
 
 post '/buzzer' do
+
+  numset = connectDB
 
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
@@ -47,10 +51,10 @@ post '/buzzer' do
         callr numset.where(:admin => 'f').all
       end
     else
-      numbers = numset.order(:admin).all
+      numbers = numset.all
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
-        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20
+        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 25
       end.text
     end
   end
@@ -58,13 +62,16 @@ post '/buzzer' do
 end
 
 post '/buzzer/continue' do
-
+  numset = connectDB
   status = params[:DialCallStatus]
+  numbers = numset.all
+  puts params 
+  numbers.delete(params[:To])
 
   if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 15    
+      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20    
     end.text
   else
     Twilio::TwiML::Response.new do |r|
@@ -77,7 +84,8 @@ end
 
 
 post '/request' do
-
+  numset = connectDB
+   
   from = params[:From]
   content = params[:Body]
 
