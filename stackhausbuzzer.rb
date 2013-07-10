@@ -41,14 +41,18 @@ post '/buzzer' do
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
-  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] || params[:From] == "twilioUI"
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] 
     if ( hr > 18 || hr < 8 ) || ( time.saturday? || time.sunday? )
       if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
           r.Say 'We are currently closed. Come back during business hours.'
         end.text
       else
-        callr numset.where(:admin => 'f').all
+        numbers = numset.where(:admin => 'f').all
+        out = numbers.pop
+        Twilio::TwiML::Response.new do |r|
+          r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 25
+        end.text
       end
     else
       numbers = numset.all
@@ -62,16 +66,24 @@ post '/buzzer' do
 end
 
 post '/buzzer/continue' do
+
   numset = connectDB
   status = params[:DialCallStatus]
-  numbers = numset.all
+
+  if params[:To] == ENV['ADMIN']
+    numbers = numset.all
+  else
+    numbers = numset.where(:admin => 'f').all
+  end
+
   puts params 
+
   numbers.delete(params[:To])
 
   if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20    
+      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20
     end.text
   else
     Twilio::TwiML::Response.new do |r|
