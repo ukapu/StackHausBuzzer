@@ -7,21 +7,7 @@ require 'pp'
 require 'sequel'
 require 'tzinfo'
 
-numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
-
-def callr(numbers)
-  if numbers.count == 0
-    Twilio::TwiML::Response.new do |r|
-      r.Say 'There are no numbers on the list. That\'s weird.'
-    end.text
-  else  
-    out = numbers.pop
-    Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :timeout => 20, :action => "stackhausstaging.herokuapp.com/buzzer"
-    end.text
-  end
-end
 
 def connectDB
   db = Sequel.connect(ENV['DATABASE_URL'])
