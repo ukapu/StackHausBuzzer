@@ -54,6 +54,8 @@ end
 
 post '/buzzer/continue' do
 
+  puts params + "\n"
+
   numset = connectDB
   status = params[:DialCallStatus]
 
@@ -63,9 +65,9 @@ post '/buzzer/continue' do
     numbers = numset.where(:admin => 'f').all
   end
 
-  puts params 
-
   numbers.delete(params[:To])
+
+  puts numbers
 
   if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
