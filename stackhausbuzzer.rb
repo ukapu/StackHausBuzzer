@@ -29,6 +29,7 @@ def connectDB
 end
 
 get '/' do
+  numset = connectDB
   erb :index, :locals => {
     :numbers => numset
   }
