@@ -24,8 +24,8 @@ def callr(numbers)
 end
 
 def connectDB
-  DB = Sequel.connect(ENV['DATABASE_URL'])
-  numset = DB[:numbers].order(:admin)
+  db = Sequel.connect(ENV['DATABASE_URL'])
+  numset = db[:numbers].order(:admin)
 end
 
 get '/' do
