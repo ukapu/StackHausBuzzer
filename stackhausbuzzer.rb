@@ -13,19 +13,6 @@ numset = DB[:numbers]
 numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
-def callr(numbers)
-  if numbers.count == 0
-    Twilio::TwiML::Response.new do |r|
-      r.Say 'There are no numbers on the list. That\'s weird.'
-    end.text
-  else  
-    out = numbers.pop
-    Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :timeout => 20, :action => "stackhausstaging.herokuapp.com/buzzer"
-    end.text
-  end
-end
-
 get '/' do
   erb :index, :locals => {
     :numbers => numset
@@ -37,20 +24,24 @@ post '/buzzer' do
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
 
-  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] || params[:From] == "twilioUI"
+  if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] 
     if ( hr > 18 || hr < 8 ) || ( time.saturday? || time.sunday? )
       if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
           r.Say 'We are currently closed. Come back during business hours.'
         end.text
       else
-        callr numset.where(:admin => 'f').all
+        numbers = numset.where(:admin => 'f').all
+        out = numbers.pop
+        Twilio::TwiML::Response.new do |r|
+          r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 25
+        end.text
       end
     else
       numbers = numset.order(:admin).all
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
-        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20
+        r.Dial out[:number], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 25
       end.text
     end
   end
@@ -64,7 +55,8 @@ post '/buzzer/continue' do
   if status == "busy" || status == "failed" || status == "no-answer"
     out = numbers.pop
     Twilio::TwiML::Response.new do |r|
-      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 15    
+      r.Say 'Calling next number.'
+      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20    
     end.text
   else
     Twilio::TwiML::Response.new do |r|
