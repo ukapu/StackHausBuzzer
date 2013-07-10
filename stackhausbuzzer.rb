@@ -51,17 +51,22 @@ end
 post '/buzzer/continue' do
 
   status = params[:DialCallStatus]
-
-  if status == "busy" || status == "failed" || status == "no-answer"
-    out = numbers.pop
+  if numbers.empty?
     Twilio::TwiML::Response.new do |r|
-      r.Say 'Calling next number.'
-      r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20    
+      r.Say 'Sorry. No one seems to be picking up their phone at the moment.'
     end.text
   else
-    Twilio::TwiML::Response.new do |r|
-      r.Say 'Goodbye'
-    end.text
+    if status == "busy" || status == "failed" || status == "no-answer"
+      out = numbers.pop
+      Twilio::TwiML::Response.new do |r|
+        r.Say 'Calling next number. Please wait.'
+        r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausstaging.herokuapp.com/buzzer/continue", :timeout => 20    
+      end.text
+    else
+      Twilio::TwiML::Response.new do |r|
+        r.Say 'Goodbye'
+      end.text
+    end
   end
 
 end
