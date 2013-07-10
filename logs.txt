@@ -1,0 +1,101 @@
+2013-07-10T18:56:04.594401+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/thin-1.5.1/lib/thin/connection.rb:79:in `pre_process'
+2013-07-10T18:56:04.957380+00:00 app[web.1]: 64.46.23.103 - - [10/Jul/2013 18:56:04] "GET /favicon.ico HTTP/1.1" 404 18 0.0035
+2013-07-10T18:56:04.958270+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=stackhausstaging.herokuapp.com fwd="64.46.23.103" dyno=web.1 connect=2ms service=13ms status=404 bytes=18
+2013-07-10T18:56:07.007216+00:00 heroku[router]: at=info method=GET path=/ host=stackhausstaging.herokuapp.com fwd="64.46.23.103" dyno=web.1 connect=2ms service=7ms status=500 bytes=30
+2013-07-10T18:56:07.003793+00:00 app[web.1]: NameError - undefined local variable or method `numset' for #<Sinatra::Application:0x00000001c80ae0>:
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1541:in `block in compile!'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:950:in `[]'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:950:in `block (3 levels) in route!'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:966:in `route_eval'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:950:in `block (2 levels) in route!'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:987:in `block in process_route'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:948:in `block in route!'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1541:in `call'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:947:in `route!'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	stackhausbuzzer.rb:33:in `block in <main>'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:985:in `process_route'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `catch'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `catch'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:947:in `each'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1056:in `dispatch!'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:882:in `block in call!'
+2013-07-10T18:56:07.003793+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:985:in `catch'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-protection-1.5.0/lib/rack/protection/base.rb:49:in `call'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `invoke'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-protection-1.5.0/lib/rack/protection/path_traversal.rb:16:in `call'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-1.5.2/lib/rack/methodoverride.rb:21:in `call'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1059:in `block in dispatch!'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `block in invoke'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-protection-1.5.0/lib/rack/protection/json_csrf.rb:18:in `call'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-protection-1.5.0/lib/rack/protection/xss_header.rb:18:in `call'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:870:in `call'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `invoke'
+2013-07-10T18:56:07.003974+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1041:in `block in invoke'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-1.5.2/lib/rack/commonlogger.rb:33:in `call'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:882:in `call!'
+2013-07-10T18:56:07.004126+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-protection-1.5.0/lib/rack/protection/base.rb:49:in `call'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1949:in `call'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:212:in `call'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-1.5.2/lib/rack/logger.rb:15:in `call'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-protection-1.5.0/lib/rack/protection/frame_options.rb:31:in `call'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/rack-1.5.2/lib/rack/head.rb:11:in `call'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/thin-1.5.1/lib/thin/connection.rb:81:in `block in pre_process'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/thin-1.5.1/lib/thin/connection.rb:79:in `pre_process'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:205:in `call'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1449:in `call'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1726:in `synchronize'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:175:in `call'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `call'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/eventmachine-1.0.3/lib/eventmachine.rb:1037:in `block in spawn_threadpool'
+2013-07-10T18:56:07.004568+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/sinatra-1.4.3/lib/sinatra/base.rb:1449:in `block in call'
+2013-07-10T18:56:07.004807+00:00 app[web.1]: 	/app/vendor/bundle/ruby/1.9.1/gems/thin-1.5.1/lib/thin/connection.rb:79:in `catch'
+2013-07-10T18:56:07.005177+00:00 app[web.1]: 64.46.23.103 - - [10/Jul/2013 18:56:07] "GET / HTTP/1.1" 500 30 0.0015
+2013-07-10T18:56:07.228497+00:00 app[web.1]: 64.46.23.103 - - [10/Jul/2013 18:56:07] "GET /favicon.ico HTTP/1.1" 404 18 0.0009
+2013-07-10T18:56:07.230787+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=stackhausstaging.herokuapp.com fwd="64.46.23.103" dyno=web.1 connect=5ms service=8ms status=404 bytes=18
+2013-07-10T19:00:40+00:00 heroku[slug-compiler]: Slug compilation started
+2013-07-10T19:01:27.825754+00:00 heroku[api]: Deploy 7aa6782 by sam@fullstack.ca
+2013-07-10T19:01:27.844820+00:00 heroku[api]: Release v104 created by sam@fullstack.ca
+2013-07-10T19:01:27.888032+00:00 heroku[api]: Deploy 7aa6782 by sam@fullstack.ca
+2013-07-10T19:01:28.270024+00:00 heroku[web.1]: State changed from up to starting
+2013-07-10T19:01:28+00:00 heroku[slug-compiler]: Slug compilation finished
+2013-07-10T19:01:31.635470+00:00 heroku[web.1]: Starting process with command `bundle exec ruby stackhausbuzzer.rb -p 48012`
+2013-07-10T19:01:33.085036+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2013-07-10T19:01:34.333768+00:00 app[web.1]: == Sinatra has ended his set (crowd applauds)
+2013-07-10T19:01:34.333768+00:00 app[web.1]: 
+2013-07-10T19:01:34.464989+00:00 app[web.1]: >> Thin web server (v1.5.1 codename Straight Razor)
+2013-07-10T19:01:34.464989+00:00 app[web.1]: >> Maximum connections set to 1024
+2013-07-10T19:01:34.464989+00:00 app[web.1]: >> Listening on 0.0.0.0:19805, CTRL+C to stop
+2013-07-10T19:01:34.464989+00:00 app[web.1]: >> Stopping ...
+2013-07-10T19:01:34.691015+00:00 app[web.1]: == Sinatra/1.4.3 has taken the stage on 48012 for production with backup from Thin
+2013-07-10T19:01:35.127664+00:00 heroku[web.1]: State changed from starting to up
+2013-07-10T19:01:36.639294+00:00 heroku[web.1]: Process exited with status 0
+2013-07-10T19:02:41.276047+00:00 heroku[router]: at=info method=GET path=/ host=stackhausstaging.herokuapp.com fwd="64.46.23.103" dyno=web.1 connect=14ms service=839ms status=200 bytes=725
+2013-07-10T19:02:41.279394+00:00 app[web.1]: 64.46.23.103 - - [10/Jul/2013 19:02:41] "GET / HTTP/1.1" 200 725 0.5148
+2013-07-10T19:02:41.769657+00:00 heroku[router]: at=info method=GET path=/favicon.ico host=stackhausstaging.herokuapp.com fwd="64.46.23.103" dyno=web.1 connect=58ms service=64ms status=404 bytes=18
+2013-07-10T19:02:41.770732+00:00 app[web.1]: 64.46.23.103 - - [10/Jul/2013 19:02:41] "GET /favicon.ico HTTP/1.1" 404 18 0.0008
+2013-07-10T19:15:31.703671+00:00 heroku[router]: at=info method=POST path=/buzzer host=stackhausstaging.herokuapp.com fwd="107.20.53.252" dyno=web.1 connect=6ms service=120ms status=200 bytes=160
+2013-07-10T19:15:31.697652+00:00 app[web.1]: 107.20.53.252 - - [10/Jul/2013 19:15:31] "POST /buzzer HTTP/1.1" 200 160 0.1074
+2013-07-10T19:16:04.309101+00:00 app[web.1]: 54.234.246.210 - - [10/Jul/2013 19:16:04] "POST /buzzer/continue HTTP/1.1" 200 184 0.1313
+2013-07-10T19:16:04.308987+00:00 heroku[router]: at=info method=POST path=/buzzer/continue host=stackhausstaging.herokuapp.com fwd="54.234.246.210" dyno=web.1 connect=1ms service=143ms status=200 bytes=184
+2013-07-10T19:16:31.117047+00:00 app[web.1]: 23.21.14.6 - - [10/Jul/2013 19:16:31] "POST /buzzer/continue HTTP/1.1" 200 184 0.3141
+2013-07-10T19:16:31.115639+00:00 heroku[router]: at=info method=POST path=/buzzer/continue host=stackhausstaging.herokuapp.com fwd="23.21.14.6" dyno=web.1 connect=5ms service=322ms status=200 bytes=184
+2013-07-10T19:16:57.821994+00:00 app[web.1]: 107.22.34.255 - - [10/Jul/2013 19:16:57] "POST /buzzer/continue HTTP/1.1" 200 184 0.4365
+2013-07-10T19:16:57.820701+00:00 heroku[router]: at=info method=POST path=/buzzer/continue host=stackhausstaging.herokuapp.com fwd="107.22.34.255" dyno=web.1 connect=0ms service=452ms status=200 bytes=184
+2013-07-10T19:17:15.406954+00:00 heroku[router]: at=info method=POST path=/buzzer/continue host=stackhausstaging.herokuapp.com fwd="54.224.143.142" dyno=web.1 connect=15ms service=130ms status=200 bytes=184
+2013-07-10T19:17:15.409362+00:00 app[web.1]: 54.224.143.142 - - [10/Jul/2013 19:17:15] "POST /buzzer/continue HTTP/1.1" 200 184 0.0899
+2013-07-10T19:17:38.107900+00:00 heroku[web.1]: State changed from up to starting
+2013-07-10T19:17:41.239791+00:00 heroku[web.1]: Starting process with command `bundle exec ruby stackhausbuzzer.rb -p 25588`
+2013-07-10T19:17:43.930381+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2013-07-10T19:17:44.565762+00:00 app[web.1]: == Sinatra/1.4.3 has taken the stage on 25588 for production with backup from Thin
+2013-07-10T19:17:44.842947+00:00 app[web.1]: == Sinatra has ended his set (crowd applauds)
+2013-07-10T19:17:44.842947+00:00 app[web.1]: 
+2013-07-10T19:17:44.899482+00:00 app[web.1]: >> Thin web server (v1.5.1 codename Straight Razor)
+2013-07-10T19:17:44.899482+00:00 app[web.1]: >> Maximum connections set to 1024
+2013-07-10T19:17:44.899482+00:00 app[web.1]: {"AccountSid"=>"ACf99cfbc0f42bb061e1dfed9ff6b168b4", "ToZip"=>"", "FromState"=>"BC", "Called"=>"+15148001174", "FromCountry"=>"CA", "CallerCountry"=>"CA", "CalledZip"=>"", "Direction"=>"inbound", "FromCity"=>"VANCOUVER", "CalledCountry"=>"CA", "CallerState"=>"BC", "CallSid"=>"CA268385b3929c5d0812c44177694b2fdf", "CalledState"=>"QC", "From"=>"+17782288756", "CallerZip"=>"", "FromZip"=>"", "CallStatus"=>"in-progress", "DialCallSid"=>"CA67075fd001900269227e3e71e3e38e55", "ToCity"=>"MONTREAL", "ToState"=>"QC", "To"=>"+15148001174", "ToCountry"=>"CA", "DialCallStatus"=>"no-answer", "CallerCity"=>"VANCOUVER", "ApiVersion"=>"2010-04-01", "Caller"=>"+17782288756", "CalledCity"=>"MONTREAL"}
+2013-07-10T19:17:44.899482+00:00 app[web.1]: >> Listening on 0.0.0.0:48012, CTRL+C to stop
+2013-07-10T19:17:44.899482+00:00 app[web.1]: {"AccountSid"=>"ACf99cfbc0f42bb061e1dfed9ff6b168b4", "ToZip"=>"", "FromState"=>"BC", "Called"=>"+15148001174", "FromCountry"=>"CA", "CallerCountry"=>"CA", "CalledZip"=>"", "Direction"=>"inbound", "FromCity"=>"VANCOUVER", "CalledCountry"=>"CA", "CallerState"=>"BC", "CallSid"=>"CA268385b3929c5d0812c44177694b2fdf", "CalledState"=>"QC", "From"=>"+17782288756", "CallerZip"=>"", "FromZip"=>"", "CallStatus"=>"in-progress", "DialCallSid"=>"CA42cce8544405bb312743240d17f5e8b0", "ToCity"=>"MONTREAL", "ToState"=>"QC", "To"=>"+15148001174", "ToCountry"=>"CA", "DialCallStatus"=>"no-answer", "CallerCity"=>"VANCOUVER", "ApiVersion"=>"2010-04-01", "Caller"=>"+17782288756", "CalledCity"=>"MONTREAL"}
+2013-07-10T19:17:44.899482+00:00 app[web.1]: {"AccountSid"=>"ACf99cfbc0f42bb061e1dfed9ff6b168b4", "ToZip"=>"", "FromState"=>"BC", "Called"=>"+15148001174", "FromCountry"=>"CA", "CallerCountry"=>"CA", "CalledZip"=>"", "Direction"=>"inbound", "FromCity"=>"VANCOUVER", "CalledCountry"=>"CA", "CallerState"=>"BC", "CallSid"=>"CA268385b3929c5d0812c44177694b2fdf", "CalledState"=>"QC", "From"=>"+17782288756", "CallerZip"=>"", "FromZip"=>"", "CallStatus"=>"completed", "DialCallSid"=>"CA6020300ace032c8c15d925b726c75918", "ToCity"=>"MONTREAL", "ToState"=>"QC", "To"=>"+15148001174", "ToCountry"=>"CA", "DialCallStatus"=>"no-answer", "CallerCity"=>"VANCOUVER", "ApiVersion"=>"2010-04-01", "Caller"=>"+17782288756", "CalledCity"=>"MONTREAL"}
+2013-07-10T19:17:44.899482+00:00 app[web.1]: {"AccountSid"=>"ACf99cfbc0f42bb061e1dfed9ff6b168b4", "ToZip"=>"", "FromState"=>"BC", "Called"=>"+15148001174", "FromCountry"=>"CA", "CallerCountry"=>"CA", "CalledZip"=>"", "Direction"=>"inbound", "FromCity"=>"VANCOUVER", "CalledCountry"=>"CA", "CallerState"=>"BC", "CallSid"=>"CA268385b3929c5d0812c44177694b2fdf", "CalledState"=>"QC", "From"=>"+17782288756", "CallerZip"=>"", "FromZip"=>"", "CallStatus"=>"in-progress", "DialCallSid"=>"CA6eb274ffc1f3fbc3ff0ba1d293829bee", "ToCity"=>"MONTREAL", "ToState"=>"QC", "To"=>"+15148001174", "ToCountry"=>"CA", "DialCallStatus"=>"no-answer", "CallerCity"=>"VANCOUVER", "ApiVersion"=>"2010-04-01", "Caller"=>"+17782288756", "CalledCity"=>"MONTREAL"}
+2013-07-10T19:17:44.899482+00:00 app[web.1]: >> Stopping ...
+2013-07-10T19:17:45.066921+00:00 heroku[web.1]: State changed from starting to up
+2013-07-10T19:17:47.270978+00:00 heroku[web.1]: Process exited with status 0
