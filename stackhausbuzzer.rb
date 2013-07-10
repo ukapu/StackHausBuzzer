@@ -64,6 +64,7 @@ post '/buzzer/continue' do
   else
     numbers = numset.where(:admin => 'f').all
   end
+  puts numbers
 
   numbers.delete(params[:To])
 
