@@ -51,6 +51,7 @@ end
 post '/buzzer/continue' do
 
   status = params[:DialCallStatus]
+  puts numbers
   if numbers.empty?
     Twilio::TwiML::Response.new do |r|
       r.Say 'Sorry. No one seems to be picking up their phone at the moment.'
