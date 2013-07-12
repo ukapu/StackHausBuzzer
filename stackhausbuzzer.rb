@@ -41,7 +41,7 @@ post '/buzzer' do
       numbers = numset.order(:admin).all
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
-        r.Dial out[:number], :action => "http://stackhausbuzzer.herokuapp.com/buzzer/continue", :timeout => 15
+        r.Dial out[:number], :action => "http://stackhausbuzzer.herokuapp.com/buzzer/continue", :timeout => 18
       end.text
     end
   end
@@ -61,7 +61,7 @@ post '/buzzer/continue' do
       out = numbers.pop
       Twilio::TwiML::Response.new do |r|
         r.Say 'Calling next number. Please wait.'
-        r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausbuzzer.herokuapp.com/buzzer/continue", :timeout => 20    
+        r.Dial out[:number], :callerId => params[:From], :action => "http://stackhausbuzzer.herokuapp.com/buzzer/continue", :timeout => 15    
       end.text
     else
       Twilio::TwiML::Response.new do |r|
