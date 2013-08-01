@@ -3,27 +3,15 @@ StackHaus Buzzer
 
 Twilio-powered buzzer control system for [StackHaus](http://fullstack.ca/stackhaus).
 
-## Overview
+The StackHaus Buzzer maintains a list of numbers which are all dialed in succession when a call comes in from either the front door or the front gate. The list is stored with PostgreSQL, and all the phone-related business is done using the Twilio API. 
 
-StackHaus has both a gate and a front door that you need to bust through in order to get up to the 6th floor.
+If you want to work on the Buzzer, you'll need to install the gems located in the Gemfile, as well as hook the app up to a database of your choice. It's being hosted on Heroku at the moment, but you can host it however you want. Note that Twilio needs for the app to hosted before it can do anything - you can't do any type of local testing. 
 
-How do we let a rotating list of phones be on the round-robin buzzer list? Enter, the StackHaus Buzzer (aka SHB).
+If you want to use the buzzer for yourself, here's a few things you need to do:
 
-## Outline
-
-* built using Ruby / Sinatra and deployed via Heroku
-* interface is through SMS and a PIN
-* text the SHB number with the PIN to get yourself added
-* text the SHB number "remove" to be removed from the list
-* auto-response before 8am and after 6pm "we are closed" unless someone has added themselves to buzz list
-
-## To-Do
-
-* optional: +time in hours to be auto-removed
-* optional: front door buzzer always rings 9 if gate called in last 5 minutes
-* admin functions so that certain people can remove other people's numbers
-
-
+- Change the enviroment variables FRONT_DOOR and GATE to whatever number(s) you expect to be calling your app.
+- Change the app's URL to whatever the URL is you're using to host the app. 
+- Change the DATABASE_URL to whatever the database is you're using. 
 
 
 
