@@ -14,7 +14,7 @@ numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
 get '/' do
-  erb :index, :locals => {
+  haml :index, :locals => {
     :numbers => numset
   }
 end
