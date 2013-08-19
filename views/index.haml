@@ -1,0 +1,17 @@
+!!! 5
+%html
+  %head
+    %title numbers with access
+    %style{:type => "text/css", :media => "screen", :href="../index.css"}
+  %body
+    %h1 numbas
+    %table
+      %tr
+        %th Phone Number
+        %th Date Added
+        %th Admin?
+      = numbers.each do |entry|
+      %tr
+        %td= entry[:number]
+        %td= Time.at(entry[:time_added]).localtime
+        %td= entry[:admin]

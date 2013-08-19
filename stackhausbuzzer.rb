@@ -13,12 +13,14 @@ numset = DB[:numbers]
 numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
+# the index shows all the numbers currently on the list, when they were signed up, and if they are an admin or not
 get '/' do
-  haml :index, :locals => {
+  erb :index, :locals => {
     :numbers => numset
   }
 end
 
+# posts to buzzer
 post '/buzzer' do
 
   hr = tz.utc_to_local(Time.now).hour
