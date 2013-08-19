@@ -45,6 +45,8 @@ heroku pg:promote [database url]
 
 Now you'll need to set the environment variables, both locally and on heroku. We'll start with the Heroku variables (more info [here](https://devcenter.heroku.com/articles/config-vars).)
 
+heroku config:set 
+
 As a developer, here's a few things you need to do:
 
 - Change the enviroment variables FRONT_DOOR and GATE to whatever number(s) you expect to be calling your app.

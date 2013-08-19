@@ -21,7 +21,7 @@ get '/' do
 end
 
 # posts to buzzer
-get '/buzzer' do
+post '/buzzer' do
 
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
