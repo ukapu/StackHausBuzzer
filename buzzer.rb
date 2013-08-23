@@ -13,21 +13,22 @@ numset = DB[:numbers]
 numbers = []
 tz = TZInfo::Timezone.get('Canada/Pacific')
 
-# the index shows all the numbers currently on the list, when they were signed up, and if they are an admin or not
+# The index shows all the numbers currently on the list, when they were signed up, and if they are an admin or not
 get '/' do
   erb :index, :locals => {
     :numbers => numset
   }
 end
 
-# posts to buzzer
+# Posts to buzzer cause the app to run through the list of numbers and call each one in succession
 post '/buzzer' do
 
   hr = tz.utc_to_local(Time.now).hour
   time = tz.utc_to_local(Time.now)
-
+  # Here it checks to see if the request is from the correct phone number. Feel free to swap out/delete variables as necessary. If you're not going to be using some of the variables, delete them.
   if params[:From] == ENV['GATE'] || params[:From] == ENV['FRONT_DOOR']  || params[:From] == ENV['TEST'] 
     if ( hr > 18 || hr < 8 ) || ( time.saturday? || time.sunday? )
+      # If it's after 6 or before 8 on a weekday, or if it's a weekend, the buzzer will only call non-admin numbers.
       if numset.where(:admin => 'f').count == 0
         Twilio::TwiML::Response.new do |r|
           r.Say 'We are currently closed. Come back during business hours.'
@@ -35,7 +36,7 @@ post '/buzzer' do
       else
         numbers = numset.where(:admin => 'f').all
         out = numbers.pop
-        Twilio::TwiML::Response.new do |r|
+       Twilio::TwiML::Response.new do |r|
           r.Dial out[:number], :action => "http://stackhausbuzzer.herokuapp.com/buzzer/continue", :timeout => 18
         end.text
       end
@@ -50,6 +51,8 @@ post '/buzzer' do
 
 end
 
+
+# this is my hackaround for doing consecutive calls- it maintains a global array of numbers and pops them out in sequence.
 post '/buzzer/continue' do
 
   status = params[:DialCallStatus]
@@ -75,7 +78,7 @@ post '/buzzer/continue' do
 end
 
 
-
+# this url handles SMS requests for adding and removing numbers from the list.
 post '/request' do
 
   from = params[:From]

@@ -1,1 +1,1 @@
-web: bundle exec ruby stackhausbuzzer.rb -p $PORT
+web: bundle exec ruby buzzer.rb -p $PORT
